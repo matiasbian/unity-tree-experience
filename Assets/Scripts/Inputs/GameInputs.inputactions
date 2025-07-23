@@ -1,0 +1,51 @@
+{
+    "name": "GameInputs",
+    "maps": [
+        {
+            "name": "Press",
+            "id": "459a2124-2bf5-47a1-a70b-2add05ecbe0f",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "99fe029e-1d11-4ee8-97ee-74ad39db9b43",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e19970a7-63fc-44bb-ac1a-eea076dda606",
+                    "path": "<Pointer>/primaryTouch",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";TouchDevice",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "TouchDevice",
+            "bindingGroup": "TouchDevice",
+            "devices": [
+                {
+                    "devicePath": "<Touchscreen>/{Pressure}",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Touchscreen>/{Forward}",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
