@@ -6,24 +6,44 @@
             "id": "459a2124-2bf5-47a1-a70b-2add05ecbe0f",
             "actions": [
                 {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "99fe029e-1d11-4ee8-97ee-74ad39db9b43",
-                    "expectedControlType": "",
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "f4150cdd-deef-41d0-af5e-97d5ea4d6066",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "PressAction",
+                    "type": "Button",
+                    "id": "4fa494cb-517b-4cd8-9d74-af9ccd913761",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "e19970a7-63fc-44bb-ac1a-eea076dda606",
-                    "path": "<Pointer>/primaryTouch",
+                    "id": "2e977856-044e-4ea2-ac68-459894d56ea1",
+                    "path": "<Touchscreen>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";TouchDevice",
-                    "action": "New action",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e462fd4-e6f8-4400-8343-eca5f8d21d04",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PressAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

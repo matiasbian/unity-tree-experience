@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e00515d848e056841814d17ecdcb0cb9
+guid: c737c2ac5636702458f05f129d9d8dc5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3946612055665836118
-    second: Fruits Assets_Apple_0
+      213: -4495517081995322552
+    second: "Sin t\xEDtulo-2_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fruits Assets_Apple_0
+      name: "Sin t\xEDtulo-2_0"
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 525
-        height: 511
-      alignment: 9
-      pivot: {x: 0.5390896, y: 0.87617123}
+        width: 740
+        height: 941
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: aaf73c3de31da39c0800000000000000
-      internalID: -3946612055665836118
+      spriteID: 84bd7fd3807bc91c0800000000000000
+      internalID: -4495517081995322552
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f10462404db97d8468f9d3f72c06deea
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Fruits Assets_Apple_0: -3946612055665836118
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

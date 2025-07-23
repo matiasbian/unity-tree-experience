@@ -92,24 +92,44 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
             ""id"": ""459a2124-2bf5-47a1-a70b-2add05ecbe0f"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""99fe029e-1d11-4ee8-97ee-74ad39db9b43"",
-                    ""expectedControlType"": """",
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""f4150cdd-deef-41d0-af5e-97d5ea4d6066"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""PressAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""4fa494cb-517b-4cd8-9d74-af9ccd913761"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""e19970a7-63fc-44bb-ac1a-eea076dda606"",
-                    ""path"": ""<Pointer>/primaryTouch"",
+                    ""id"": ""2e977856-044e-4ea2-ac68-459894d56ea1"",
+                    ""path"": ""<Touchscreen>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";TouchDevice"",
-                    ""action"": ""New action"",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e462fd4-e6f8-4400-8343-eca5f8d21d04"",
+                    ""path"": ""<Touchscreen>/Press"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PressAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -137,7 +157,8 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
 }");
         // Press
         m_Press = asset.FindActionMap("Press", throwIfNotFound: true);
-        m_Press_Newaction = m_Press.FindAction("New action", throwIfNotFound: true);
+        m_Press_Move = m_Press.FindAction("Move", throwIfNotFound: true);
+        m_Press_PressAction = m_Press.FindAction("PressAction", throwIfNotFound: true);
     }
 
     ~@GameInputs()
@@ -218,7 +239,8 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
     // Press
     private readonly InputActionMap m_Press;
     private List<IPressActions> m_PressActionsCallbackInterfaces = new List<IPressActions>();
-    private readonly InputAction m_Press_Newaction;
+    private readonly InputAction m_Press_Move;
+    private readonly InputAction m_Press_PressAction;
     /// <summary>
     /// Provides access to input actions defined in input action map "Press".
     /// </summary>
@@ -231,9 +253,13 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         /// </summary>
         public PressActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Press/Newaction".
+        /// Provides access to the underlying input action "Press/Move".
         /// </summary>
-        public InputAction @Newaction => m_Wrapper.m_Press_Newaction;
+        public InputAction @Move => m_Wrapper.m_Press_Move;
+        /// <summary>
+        /// Provides access to the underlying input action "Press/PressAction".
+        /// </summary>
+        public InputAction @PressAction => m_Wrapper.m_Press_PressAction;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -260,9 +286,12 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PressActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PressActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+            @PressAction.started += instance.OnPressAction;
+            @PressAction.performed += instance.OnPressAction;
+            @PressAction.canceled += instance.OnPressAction;
         }
 
         /// <summary>
@@ -274,9 +303,12 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="PressActions" />
         private void UnregisterCallbacks(IPressActions instance)
         {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+            @PressAction.started -= instance.OnPressAction;
+            @PressAction.performed -= instance.OnPressAction;
+            @PressAction.canceled -= instance.OnPressAction;
         }
 
         /// <summary>
@@ -331,11 +363,18 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
     public interface IPressActions
     {
         /// <summary>
-        /// Method invoked when associated input action "New action" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "PressAction" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPressAction(InputAction.CallbackContext context);
     }
 }
