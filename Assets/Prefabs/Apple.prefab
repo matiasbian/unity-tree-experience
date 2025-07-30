@@ -49,9 +49,6 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -97,9 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7198702910756532510}
   - component: {fileID: 202142117934134368}
-  - component: {fileID: 8795656004588169904}
   - component: {fileID: 1947489907455561780}
-  - component: {fileID: 5796611829058573547}
+  - component: {fileID: 4128810984173985859}
+  - component: {fileID: 9161722628546501921}
   m_Layer: 0
   m_Name: Apple
   m_TagString: Untagged
@@ -136,42 +133,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb5d20af418fad45a41146d15592c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody2D: {fileID: 8795656004588169904}
   _animator: {fileID: 1947489907455561780}
+  _physicObject: {fileID: 4128810984173985859}
   stretchFactor: 0.1
   maxStretch: 1.5
   returnShapeForce: 8
   releaseDistance: 1.5
---- !u!50 &8795656004588169904
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7760662087652223457}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 0.5
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 2
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!95 &1947489907455561780
 Animator:
-  serializedVersion: 7
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -185,21 +155,39 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!70 &5796611829058573547
-CapsuleCollider2D:
+--- !u!114 &4128810984173985859
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7760662087652223457}
   m_Enabled: 1
-  serializedVersion: 3
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2b646de944681f4286a8ddb865c333f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BounceForce: 3
+  BounceDelay: 1
+  Weight: 2
+  _torqueMultiplier: 200
+  _collider: {fileID: 9161722628546501921}
+  angularVelocity: 0
+  torque: 0
+  angularDamping: 0.99999
+--- !u!58 &9161722628546501921
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760662087652223457}
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -223,11 +211,10 @@ CapsuleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.01817361, y: -0.07269334}
-  m_Size: {x: 5.261424, y: 5.4068103}
-  m_Direction: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.66
 --- !u!1 &9116785017299429055
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,9 +264,6 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

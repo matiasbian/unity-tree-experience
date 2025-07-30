@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Apple : MonoBehaviour, InteractableFruit
 {
-    [SerializeField] private Rigidbody2D _rigidbody2D;
 	[SerializeField] private Animator _animator;
+	[SerializeField] private PhysicObject _physicObject;
 
 	[SerializeField] private float stretchFactor = 0.1f;
 	[SerializeField] private float maxStretch = 3f;
@@ -53,7 +53,7 @@ public class Apple : MonoBehaviour, InteractableFruit
 		}
 	}
 
-	public void Released()
+	public void Released(Vector2 dragDir)
 	{
 		_released = true;
 		if (!_grabbed)
@@ -63,9 +63,8 @@ public class Apple : MonoBehaviour, InteractableFruit
 
 		_animator.SetTrigger("Released");
 
-		_rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
-		_rigidbody2D.WakeUp();
-		_rigidbody2D.AddTorque(1, ForceMode2D.Impulse);
+		Gravity.Instance.Subscribe(_physicObject);
+		_physicObject.SetTorque(dragDir.x);
 	}
 
 	private void Update()

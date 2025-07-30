@@ -2,35 +2,24 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.DefaultInputActions;
 
-public class InputListener : MonoBehaviour, GameInputs.IPressActions
-{
-	public static InputListener Instance { get; private set; }
-	
+public class InputListener : MonoSingleton<InputListener>, GameInputs.IPressActions
+{	
 	private GameInputs m_Actions;                  // Source code representation of asset.
 	private GameInputs.PressActions m_Player;     // Source code representation of action map
 
 	private InteractableFruit _grabbedObject;
 
 	private Vector2 _lastWorldPosition;
+	private Vector2 _lastWorldPositionDir;
+
+	private float _deltaPosSaver = 0f;
+
+	private Vector2 _initDragPos;
 
 	[SerializeField] private PlayerInput _playerInput;
 
-
-	private void MakeSingleton()
-	{
-		if (Instance != null && Instance != this)
-		{
-			Destroy(gameObject); // Prevent duplicates
-			return;
-		}
-
-		Instance = this;
-	}
-
 	void Awake()
 	{
-		MakeSingleton();
-
 		m_Actions = new GameInputs();
 		m_Player = m_Actions.Press;
 		m_Player.AddCallbacks(this);
@@ -71,7 +60,15 @@ public class InputListener : MonoBehaviour, GameInputs.IPressActions
 				_grabbedObject.Pushing(worldPosition, _lastWorldPosition);
 				_grabbedObject.Move(newPosition);
 
-				_lastWorldPosition = worldPosition;
+				if (_deltaPosSaver >= 0.2f) // Update every other frame to reduce performance impact
+				{
+					_lastWorldPositionDir = worldPosition;
+					_deltaPosSaver = 0f;
+				}
+				else
+				{
+					_deltaPosSaver += Time.deltaTime;
+				}
 			}
 		}
 	}
@@ -87,6 +84,7 @@ public class InputListener : MonoBehaviour, GameInputs.IPressActions
 			if (hit.collider != null && hit.collider.TryGetComponent<InteractableFruit>(out var interactableFruit))
 			{
 				_grabbedObject = interactableFruit;
+				_initDragPos = worldPosition;
 			}
 		}
 		else if (context.phase == InputActionPhase.Canceled)
@@ -96,7 +94,14 @@ public class InputListener : MonoBehaviour, GameInputs.IPressActions
 				return;
 			}
 
-			_grabbedObject.Released();
+			Vector2 screenPosition = Touchscreen.current.primaryTouch.position.ReadValue();
+			Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+
+			Vector2 dir = (_lastWorldPositionDir - worldPosition).normalized;
+
+			_grabbedObject.Released(dir);
+
+			_initDragPos = Vector2.zero;
 			_grabbedObject = null;
 		}
 	}
